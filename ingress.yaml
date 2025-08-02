@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: monica-echo-app-ingress
+  namespace: shared-eks-activity
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: "monica-echoapp.sctp-sandbox.com"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "monica-echoapp.sctp-sandbox.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: monica-echo-service
+            port:
+              number: 80
